@@ -1,0 +1,3 @@
+[submodule "cutflow-pro"]
+	path = cutflow-pro
+	url = https://github.com/Empowerling/cutflow-pro.git
