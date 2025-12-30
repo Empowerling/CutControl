@@ -82,10 +82,23 @@ export async function getAppointmentsByStaffAndDate(
   return data || [];
 }
 
-export async function createAppointment(appointment: Omit<Appointment, 'id' | 'created_at' | 'updated_at'>): Promise<Appointment> {
+export async function createAppointment(appointment: Omit<Appointment, 'id' | 'created_at' | 'updated_at' | 'cancellation_token'>): Promise<Appointment> {
+  // cancellation_token wird automatisch von der Datenbank generiert (DEFAULT gen_random_uuid())
   const { data, error } = await supabase
     .from('appointments')
     .insert(appointment)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+export async function cancelAppointmentByToken(token: string): Promise<Appointment> {
+  const { data, error } = await supabase
+    .from('appointments')
+    .update({ status: 'cancelled' })
+    .eq('cancellation_token', token)
     .select()
     .single();
 

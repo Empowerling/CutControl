@@ -106,6 +106,7 @@ CREATE TABLE appointments (
   deposit_amount DECIMAL(10, 2) DEFAULT 0,
   total_price DECIMAL(10, 2) NOT NULL,
   notes TEXT,
+  cancellation_token UUID NOT NULL DEFAULT uuid_generate_v4(),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -122,6 +123,7 @@ CREATE INDEX idx_appointments_salon_id ON appointments(salon_id);
 CREATE INDEX idx_appointments_staff_id ON appointments(staff_id);
 CREATE INDEX idx_appointments_date ON appointments(appointment_date);
 CREATE INDEX idx_appointments_staff_date ON appointments(staff_id, appointment_date);
+CREATE INDEX idx_appointments_cancellation_token ON appointments(cancellation_token);
 CREATE INDEX idx_staff_working_hours_staff_id ON staff_working_hours(staff_id);
 
 -- ============================================

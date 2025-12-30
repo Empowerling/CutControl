@@ -76,6 +76,7 @@ export type Appointment = {
   deposit_amount: number;
   total_price: number;
   notes: string | null;
+  cancellation_token: string;
   created_at: string;
   updated_at: string;
 };
